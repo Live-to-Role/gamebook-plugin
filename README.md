@@ -12,7 +12,7 @@ You do not need to know markdown, and you do not need to know how to code.
 - **Plays the book beside your manuscript.** The same engine gamebook.press uses, in a side pane. Items, locked choices, dice, fights and endings behave exactly as your readers will find them.
 - **Writes the formatting for you.** Right-click in a chapter to insert:
   - **Read-aloud text**, set apart in a box.
-  - **Stat blocks**, laid out the way your game system prints them. Dungeon Crawl Classics first, with Viva la Dungeon, Standard Gamebook and a plain layout for anything else.
+  - **Stat blocks**, laid out the way your game system prints them. Dungeon Crawl Classics and Standard Gamebook have their own; any other system gets a plain one.
   - **Roll tables**, with a row for every result of the dice you pick.
   - **GM's notes**: notes to yourself that show while you write and are never published.
   - **Links to a table or section**, so a reader can look something up and come straight back.
