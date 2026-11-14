@@ -12,7 +12,7 @@ You do not need to know markdown, and you do not need to know how to code.
 - **Plays the book beside your manuscript.** The same engine gamebook.press uses, in a side pane. Items, locked choices, dice, fights and endings behave exactly as your readers will find them.
 - **Writes the formatting for you.** Right-click in a chapter to insert:
   - **Read-aloud text**, set apart in a box.
-  - **Stat blocks**, laid out the way your game system prints them. Dungeon Crawl Classics and Standard Gamebook have their own; any other system gets a plain one.
+  - **Stat blocks**, laid out the way your game system prints them. Dungeon Crawl Classics, d20 Classic and the Standard Gamebook have their own, and in those the stat block is what the monster fights with; any other system gets a plain one.
   - **Roll tables**, with a row for every result of the dice you pick.
   - **GM's notes**: notes to yourself that show while you write and are never published.
   - **Links to a table or section**, so a reader can look something up and come straight back.
@@ -37,7 +37,7 @@ You do not need to know markdown, and you do not need to know how to code.
     blocked: It is too dark to go in without a light.
 ```
 
-That is the whole idea. The built-in guide (the graduation-cap icon in the ribbon) walks through the rest, and the full reference is at <https://gamebook.press/docs/writing>.
+That is the whole idea. The built-in guide (the graduation-cap icon in the ribbon) walks through the rest, and the full reference is at <https://gamebook.press/docs/writing>. What each game system's checks, saves and fights look like is at <https://gamebook.press/docs/systems>.
 
 ## Publish on gamebook.press
 
@@ -77,4 +77,4 @@ Until the plugin is in Obsidian's community list:
 
 ## Licence
 
-MIT. Dungeon Crawl Classics is a trademark of Goodman Games, used with permission.
+MIT. Dungeon Crawl Classics is a trademark of Goodman Games.
