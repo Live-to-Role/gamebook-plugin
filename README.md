@@ -18,6 +18,8 @@ You do not need to know markdown, and you do not need to know how to code.
   - **Links to a table or section**, so a reader can look something up and come straight back.
 - **Finds your mistakes.** A choice that leads nowhere, an item nobody declared, a section no one can reach: each is listed above the game in plain words. Click one to jump to the line.
 - **Lets you leave things unwritten.** Point a choice at `???` and keep going. The book still plays, and the pane keeps the list of what is left.
+- **Tells you how hard a fight is.** A fight report fights each fight in your book a few hundred times on its own dice and shows how often the reader wins and what they have left. A path report fights the fights a reader meets one after another.
+- **Rolls characters, or a whole band.** In Dungeon Crawl Classics a book can roll the reader's character on a setting instead of offering pre-gens, or hand them a band who step up one after another as each falls. See <https://gamebook.press/docs/systems/dcc>.
 - **Builds a contents page** from your headings, for finding your way around a long manuscript.
 - **Exports for publishing.** One command makes the file gamebook.press takes.
 
@@ -68,6 +70,8 @@ Until the plugin is in Obsidian's community list:
 | Insert link to a table or section | A choice that looks something up and returns. |
 | Update the contents page | Rewrites the *Contents* note from your headings. |
 | Export this book as a package | Writes `<book id>.gamebook.zip` beside the book. |
+| Report on the fights in this book | Fights each fight 200 times as each pre-gen (or as a freshly rolled character or band each time, in a book that rolls them) and shows how often they win and what they have left. In a system with Luck, burning it and keeping it are shown apart where it makes a difference. |
+| Report on a path of fights in this book | Fights the fights you pick one after another, each with the wounds the last left. Only the fights are played, not the sections between them, so healing on the way is not counted. In a band book the next member steps up when one falls. |
 
 ## Privacy and network use
 
