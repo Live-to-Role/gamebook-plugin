@@ -6,6 +6,8 @@ A gamebook is a story the reader plays: read a passage, make a choice, turn to w
 
 You do not need to know markdown, and you do not need to know how to code.
 
+![A chapter being written on the left, and the same book playing in the pane on the right](screenshots/gamebook-plugin.png)
+
 ## What it does
 
 - **Starts you with a working book.** *Start a new book* makes a short example you can play straight away: a few sections, a locked door, a creature, a table and an ending. Edit it into your own.
