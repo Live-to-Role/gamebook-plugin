@@ -81,6 +81,10 @@ Until the plugin is in Obsidian's community list:
 - No account is needed to write, play or export. An account on gamebook.press is needed only if you choose to publish there, and uploading is something you do yourself on the site.
 - It reads and writes only inside your vault: the book's own folder, the exported zip and the *Contents* note.
 
+## Support
+
+Second Person Press is a Magical Mishap LLC creation. Patrons on [Patreon](https://www.patreon.com/c/MagicalMishap) fund the plugin and gamebook.press.
+
 ## Licence
 
 MIT. Dungeon Crawl Classics is a trademark of Goodman Games.

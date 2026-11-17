@@ -4,7 +4,7 @@
   "version": "0.4.0",
   "minAppVersion": "1.7.2",
   "description": "Write playable gamebooks in plain Markdown: insert read-aloud text, stat blocks and roll tables, play the book beside the manuscript, and export it for gamebook.press.",
-  "author": "Second Person Press",
+  "author": "Second Person Press, a Magical Mishap LLC creation",
   "authorUrl": "https://gamebook.press",
   "fundingUrl": {
     "Patreon": "https://www.patreon.com/c/MagicalMishap"
