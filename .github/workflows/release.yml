@@ -1,0 +1,109 @@
+# Build a tagged release in the open, attest what was built, and stage the release as a draft.
+#
+# This file lives in the platform repository as `obsidian-plugin/release.workflow.yml` and is
+# written here by `scripts/mirror-plugin.mjs`; change it there.
+#
+# An attestation can only be signed from inside a workflow run, so the files a writer installs are
+# built here rather than uploaded from somebody's machine. `gh attestation verify main.js --repo
+# Live-to-Role/gamebook-plugin --source-ref refs/tags/<version>` then proves a download was built
+# by this repository from that tag.
+#
+# Two jobs, so that nothing a dependency runs during the install or the build is in the job that
+# can sign or write a release: `build` can only read, and `release` runs no code from the
+# repository at all.
+#
+# The release is left as a draft: Obsidian's directory scans a release when it is published, and
+# "What's new" is written by a person.
+name: Release
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      # Obsidian finds a release by the manifest's version, so a tag that differs is a release
+      # nobody can install.
+      - name: Tag matches the manifest
+        run: |
+          version=$(node -p "require('./manifest.json').version")
+          if [ "$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME is not the manifest's version, $version"
+            exit 1
+          fi
+
+      - run: npm ci
+
+      # Builds main.js and styles.css, and packs the install zip.
+      - run: npm run zip
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release
+          if-no-files-found: error
+          path: |
+            obsidian-plugin/main.js
+            obsidian-plugin/styles.css
+            manifest.json
+            gamebook-press-${{ github.ref_name }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+
+      - uses: actions/attest@v4
+        with:
+          subject-path: |
+            obsidian-plugin/main.js
+            obsidian-plugin/styles.css
+            manifest.json
+            gamebook-press-${{ github.ref_name }}.zip
+
+      - name: Draft the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # A run repeated for the same tag replaces its own draft. A published release is left
+          # alone, and the create below then fails.
+          if [ "$(gh release view "$GITHUB_REF_NAME" --json isDraft --jq .isDraft 2>/dev/null)" = "true" ]; then
+            gh release delete "$GITHUB_REF_NAME" --yes
+          fi
+          cat > notes.md <<NOTES
+          ## Installing
+
+          Download **gamebook-press-$GITHUB_REF_NAME.zip** below (not "Source code"). Unzip it and put the \`gamebook-press\` folder in your vault's \`.obsidian/plugins/\` folder. Then turn the plugin on under Settings → Community plugins.
+
+          ## What's new
+
+          - 
+
+          Dungeon Crawl Classics is a trademark of Goodman Games.
+          NOTES
+          gh release create "$GITHUB_REF_NAME" \
+            "gamebook-press-$GITHUB_REF_NAME.zip" obsidian-plugin/main.js manifest.json obsidian-plugin/styles.css \
+            --draft --verify-tag --title "$GITHUB_REF_NAME" --notes-file notes.md
