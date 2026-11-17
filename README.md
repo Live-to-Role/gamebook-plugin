@@ -25,6 +25,8 @@ You do not need to know markdown, and you do not need to know how to code.
 - **Builds a contents page** from your headings, for finding your way around a long manuscript.
 - **Exports for publishing.** One command makes the file gamebook.press takes.
 
+![The editor's right-click menu, with the Gamebook inserts at the bottom](screenshots/gamebook-insert-menu.png)
+
 ## What a book looks like
 
 ```
@@ -42,6 +44,8 @@ You do not need to know markdown, and you do not need to know how to code.
 ```
 
 That is the whole idea. The built-in guide (the graduation-cap icon in the ribbon) walks through the rest, and the full reference is at <https://gamebook.press/docs/writing>. What each game system's checks, saves and fights look like is at <https://gamebook.press/docs/systems>.
+
+![The first steps of the writing guide](screenshots/gamebook-guide.png)
 
 ## Publish on gamebook.press
 
