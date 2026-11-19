@@ -1,7 +1,7 @@
 {
   "id": "gamebook-press",
   "name": "Gamebook Press",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "minAppVersion": "1.7.2",
   "description": "Write gamebooks that readers play, not read, in plain Markdown. Play the book beside the manuscript, then publish it on gamebook.press or export it for print and as an ebook.",
   "author": "Second Person Press, a Magical Mishap LLC creation",
