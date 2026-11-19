@@ -1,15 +1,21 @@
-# Build a tagged release in the open, attest what was built, and stage the release as a draft.
+# Build a tagged release from the private source, attest what was built, and stage the release
+# as a draft.
 #
 # This file lives in the platform repository as `obsidian-plugin/release.workflow.yml` and is
 # written here by `scripts/mirror-plugin.mjs`; change it there.
 #
+# This repository holds no source. The build checks out Live-to-Role/gamebook-plugin-source at the
+# same tag, with a read-only deploy key whose private half is the SOURCE_DEPLOY_KEY secret. The
+# build runs here rather than there because GitHub signs attestations only in public repositories
+# on the organisation's plan.
+#
 # An attestation can only be signed from inside a workflow run, so the files a writer installs are
 # built here rather than uploaded from somebody's machine. `gh attestation verify main.js --repo
 # Live-to-Role/gamebook-plugin --source-ref refs/tags/<version>` then proves a download was built
-# by this repository from that tag.
+# by this repository's workflow for that tag.
 #
 # Two jobs, so that nothing a dependency runs during the install or the build is in the job that
-# can sign or write a release: `build` can only read, and `release` runs no code from the
+# can sign or write a release: `build` can only read, and `release` runs no code from either
 # repository at all.
 #
 # The release is left as a draft: Obsidian's directory scans a release when it is published, and
@@ -33,34 +39,52 @@ jobs:
         with:
           persist-credentials: false
 
+      - uses: actions/checkout@v7
+        with:
+          repository: Live-to-Role/gamebook-plugin-source
+          ref: refs/tags/${{ github.ref_name }}
+          ssh-key: ${{ secrets.SOURCE_DEPLOY_KEY }}
+          persist-credentials: false
+          path: source
+
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
 
-      # Obsidian finds a release by the manifest's version, so a tag that differs is a release
-      # nobody can install.
-      - name: Tag matches the manifest
+      # Obsidian finds a release by the manifest's version, so a tag that differs from either
+      # manifest is a release nobody can install, or one built from other source.
+      - name: Tag matches the manifests
         run: |
-          version=$(node -p "require('./manifest.json').version")
-          if [ "$version" != "$GITHUB_REF_NAME" ]; then
-            echo "::error::tag $GITHUB_REF_NAME is not the manifest's version, $version"
-            exit 1
-          fi
+          for manifest in manifest.json source/manifest.json; do
+            version=$(node -p "require('./$manifest').version")
+            if [ "$version" != "$GITHUB_REF_NAME" ]; then
+              echo "::error::tag $GITHUB_REF_NAME is not the version in $manifest, $version"
+              exit 1
+            fi
+          done
+
+      # Which source commit the tag named when this ran, for the release notes: the attestation
+      # binds only this repository's commit, which holds no source.
+      - run: git -C source rev-parse HEAD > source/source-commit
 
       - run: npm ci
+        working-directory: source
 
       # Builds main.js and styles.css, and packs the install zip.
       - run: npm run zip
+        working-directory: source
 
+      # The common folder, source/, is left off the paths inside the artifact.
       - uses: actions/upload-artifact@v7
         with:
           name: release
           if-no-files-found: error
           path: |
-            obsidian-plugin/main.js
-            obsidian-plugin/styles.css
-            manifest.json
-            gamebook-press-${{ github.ref_name }}.zip
+            source/obsidian-plugin/main.js
+            source/obsidian-plugin/styles.css
+            source/manifest.json
+            source/gamebook-press-${{ github.ref_name }}.zip
+            source/source-commit
 
   release:
     needs: build
@@ -103,6 +127,8 @@ jobs:
           - 
 
           Dungeon Crawl Classics is a trademark of Goodman Games.
+
+          Built from source commit $(cat source-commit).
           NOTES
           gh release create "$GITHUB_REF_NAME" \
             "gamebook-press-$GITHUB_REF_NAME.zip" obsidian-plugin/main.js manifest.json obsidian-plugin/styles.css \

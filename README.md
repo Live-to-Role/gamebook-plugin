@@ -106,6 +106,8 @@ Until the plugin is in Obsidian's community list:
 
 Second Person Press is a Magical Mishap LLC creation. Patrons on [Patreon](https://www.patreon.com/c/MagicalMishap) fund the plugin and gamebook.press.
 
-## Licence
+## Licence and source code
 
-MIT. Dungeon Crawl Classics is a trademark of Goodman Games.
+The plugin is free to use, and closed source: its source code is not published. Obsidian's community directory reads it privately to check that each release is built from it. Versions up to and including 0.5.0 are released under the MIT License.
+
+Dungeon Crawl Classics is a trademark of Goodman Games.
