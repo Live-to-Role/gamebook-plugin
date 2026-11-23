@@ -68,9 +68,11 @@ To submit a book: make an account, choose your handle, ask for creator access, r
 
 ## Installing
 
-Until the plugin is in Obsidian's community list:
+In Obsidian, open Settings → Community plugins. If it offers *Turn on community plugins*, press it first. Then press *Browse*, search for *Gamebook Press*, install it and switch it on. Obsidian keeps it up to date from there. Its page in the directory is <https://community.obsidian.md/plugins/gamebook-press>.
 
-- **By hand.** On the [latest release](https://github.com/Live-to-Role/gamebook-plugin/releases/latest), download the file whose name starts `gamebook-press-` and ends `.zip` (not "Source code"). Unzip it and put the `gamebook-press` folder in `<your vault>/.obsidian/plugins/`, so that `main.js` ends up at `.obsidian/plugins/gamebook-press/main.js`. (Windows may wrap it in a second folder when it unzips; it is the inner one you want.) Then open Settings → Community plugins, press the reload button, and switch on *Gamebook Press*.
+Other ways:
+
+- **By hand**, which does not update itself. On the [latest release](https://github.com/Live-to-Role/gamebook-plugin/releases/latest), download the file whose name starts `gamebook-press-` and ends `.zip` (not "Source code"). Unzip it and put the `gamebook-press` folder in `<your vault>/.obsidian/plugins/`, so that `main.js` ends up at `.obsidian/plugins/gamebook-press/main.js`. (Windows may wrap it in a second folder when it unzips; it is the inner one you want.) Then open Settings → Community plugins, press the reload button, and switch on *Gamebook Press*.
 - **With [BRAT](https://github.com/TfTHacker/obsidian42-brat).** Add `Live-to-Role/gamebook-plugin` as a beta plugin.
 
 ## Commands
